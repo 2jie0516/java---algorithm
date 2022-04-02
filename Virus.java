@@ -45,6 +45,7 @@ public class Virus {
             y = sc.nextInt();
 
             graph.get(x).add(y);
+            graph.get(y).add(x);
         }
 
 
