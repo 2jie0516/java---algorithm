@@ -1,0 +1,35 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int num = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < num; i++) {
+            StringBuilder sb = new StringBuilder();
+            Stack s = new Stack();
+            String str = sc.nextLine();
+
+            for (int j = 0; j < str.length(); j++) {
+                if (str.charAt(j) == ' ') {
+                    while (!s.isEmpty()) {
+                        sb.append(s.pop());
+                    }
+                    sb.append(" ");
+                } else {
+                    s.push(str.charAt(j));
+                }
+            }
+            while (!s.isEmpty()){
+                sb.append(s.pop());
+            }
+
+            System.out.println(sb);
+
+        }
+
+    }
+}
