@@ -1,0 +1,59 @@
+import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException{
+        LinkedList<Character> list = new LinkedList<>();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(System.in);
+        String str = br.readLine();
+        int num = Integer.parseInt(br.readLine());
+        for(int i =0;i<str.length();i++){
+            list.add(str.charAt(i));
+        }
+        ListIterator<Character> iter = list.listIterator();
+        while(iter.hasNext()){
+            iter.next();
+        }
+        String input;
+        for(int i =0;i<num;i++){
+            input =  br.readLine();
+
+            switch (input.charAt(0)){
+                case 'L':
+                    if(iter.hasPrevious()){
+                        iter.previous();
+                    }
+                    break;
+                case 'D':
+                    if(iter.hasNext()){
+                        iter.next();
+                    }
+                    break;
+                case 'B':
+                    if(iter.hasPrevious()){
+                        iter.previous();
+                        iter.remove();
+                    }
+                    break;
+
+                default:
+                    iter.add(input.charAt(2));
+
+
+            }
+        }
+
+        for(Character c : list){
+            sb.append(c);
+        }
+
+        System.out.println(sb);
+
+    }
+}
