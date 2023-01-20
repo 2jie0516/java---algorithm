@@ -1,0 +1,66 @@
+import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        StringBuilder sb = new StringBuilder();
+        Deque<Integer> list = new LinkedList<>();
+        int num = sc.nextInt();
+        sc.nextLine();
+        for (int i = 0; i < num; i++) {
+            String str = sc.next();
+            switch (str) {
+                case "push_front":
+                    list.addFirst(Integer.parseInt(sc.next()));
+                    break;
+                case "push_back":
+                    list.addLast(Integer.parseInt(sc.next()));
+                    break;
+                case "pop_front":
+                    if (!list.isEmpty()) {
+                        sb.append(list.pollFirst()).append("\n");
+                        break;
+                    }
+                    sb.append(-1).append("\n");
+                    break;
+                case "pop_back":
+                    if (!list.isEmpty()) {
+                        sb.append(list.pollLast()).append("\n");
+                        break;
+                    }
+                    sb.append(-1).append("\n");
+                    break;
+                case "size":
+                    sb.append(list.size()).append("\n");
+                    break;
+                case "empty":
+                    if(list.isEmpty()){
+                        sb.append(1).append("\n");
+                        break;
+                    }
+                    sb.append(0).append("\n");
+                    break;
+                case "front":
+                    if (!list.isEmpty()) {
+                        sb.append(list.getFirst()).append("\n");
+                        break;
+                    }
+                    sb.append(-1).append("\n");
+                    break;
+                case "back":
+                    if (!list.isEmpty()) {
+                        sb.append(list.getLast()).append("\n");
+                        break;
+                    }
+                    sb.append(-1).append("\n");
+            }
+
+        }
+        System.out.println(sb);
+
+    }
+}
