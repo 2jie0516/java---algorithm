@@ -1,0 +1,45 @@
+import org.w3c.dom.ls.LSOutput;
+
+import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(System.in);
+        Stack<Integer> s = new Stack<>();
+
+
+        int num = sc.nextInt();
+        int[] seq = new int[num];
+        for(int i=0;i<num;i++){
+            seq[i] = sc.nextInt();
+        }
+
+        for(int i =0;i<num-1;i++){
+            if(seq[i] < seq[i+1]){
+                seq[i] = seq[i+1];
+
+                while(!s.isEmpty() && (seq[s.peek()] < seq[i+1])){
+                    seq[s.pop()] = seq[i+1];
+                }
+                continue;
+            }
+            s.push(i);
+        }
+        while (!s.isEmpty()){
+            seq[s.pop()] = -1;
+        }
+        for(int i=0; i<num-1;i++){
+            sb.append(seq[i]).append(" ");
+        }
+        sb.append(-1);
+
+        System.out.println(sb);
+    }
+
+}
