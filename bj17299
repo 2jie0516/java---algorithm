@@ -1,0 +1,52 @@
+import org.w3c.dom.ls.LSOutput;
+
+import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.rmi.UnexpectedException;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        StringBuilder sb = new StringBuilder();
+        Map<Integer,Integer> m = new HashMap<>();
+        Stack<Integer> s = new Stack<>();
+        int num = sc.nextInt();
+        sc.nextLine();
+        int[] seq = new int[num+1];
+        int[] cnt = new int[1000001];
+
+        for(int i=1;i<=num;i++){
+            int input = sc.nextInt();
+            seq[i] = input;
+            cnt[input] += 1;
+        }
+        for(int i=1;i<=num-1;i++){
+            if(cnt[seq[i]] < cnt[seq[i+1]]){
+                seq[i] = seq[i+1];
+                while (!s.isEmpty() && cnt[seq[s.peek()]] < cnt[seq[i+1]]){
+                    seq[s.pop()] = seq[i+1];
+                }
+            }
+            else{
+                s.push(i);
+            }
+        }
+        while (!s.isEmpty()){
+            seq[s.pop()] = -1;
+        }
+        for(int i=1;i<=num-1;i++){
+            sb.append(seq[i]).append(" ");
+        }
+        sb.append(-1);
+
+        System.out.println(sb);
+
+    }
+
+
+
+}
