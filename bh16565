@@ -1,0 +1,31 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        String str = br.readLine();
+
+
+
+        int size = str.length();
+
+        String[] seq = new String[size];
+
+        for(int i=0;i<size;i++){
+            String seq_ = str.substring(i);
+            seq[i] = seq_;
+        }
+
+        Arrays.sort(seq);
+
+        for (int i=0;i<size;i++){
+            sb.append(seq[i]).append("\n");
+        }
+        System.out.println(sb);
+    }
+}
