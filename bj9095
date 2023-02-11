@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int case_num = sc.nextInt();
+
+        int[] dp=new int[12];
+        dp[0] = dp[1] = 1;
+        dp[2] = 2;
+        for (int i = 0; i < case_num; i++) {
+            int num = sc.nextInt();
+
+            for(int j=3;j<=num;j++){
+                dp[j] = dp[j-1] + dp[j-2] + dp[j-3];
+            }
+            System.out.println(dp[num]);
+        }
+
+
+    }
+
+
+}
