@@ -1,0 +1,45 @@
+import java.util.Scanner;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
+public class Main {
+    static Integer[] dp;
+    static int[] price;
+    static int minimum;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int num = sc.nextInt();
+        price = new int[num+1];
+        dp = new Integer[num+1];
+        for(int i=1;i<=num;i++){
+            price[i] = sc.nextInt();
+        }
+
+
+        dp[0] = 0;
+        dp[1] = price[1];
+        for(int i=2;i<=num;i++){
+            minimum = price[i];
+            dp(i);
+        }
+        System.out.println(dp[num]);
+    }
+
+    static int dp(int num){
+        if(dp[num] == null){
+            for(int i=0;i<num;i++){
+                if(minimum > (dp(i)+price[num-i])){
+                    minimum = dp(i)+price[num-i];
+                }
+            }
+            dp[num] = minimum;
+        }
+        return dp[num];
+
+
+    }
+
+}
