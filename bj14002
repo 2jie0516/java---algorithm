@@ -1,0 +1,78 @@
+import java.util.Scanner;
+
+public class main {
+    static int[] seq;
+    static int[] dp;
+    static int max;
+    static int size;
+    static int result;
+    static StringBuilder sb = new StringBuilder();
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int num = sc.nextInt();
+        seq = new int[num + 1];
+        dp = new int[num + 1];
+        size = seq.length;
+
+        for (int i = 1; i <= num; i++) {
+            seq[i] = sc.nextInt();
+        }
+
+        dp[1] = 1;
+        for (int i = 2; i <= num; i++) {
+            dp[i] = 1;
+            max = 0;
+            dp(i);
+        }
+        result = 0;
+        for (int i = 1; i <= num; i++) {
+            if (result < dp[i]) result = dp[i];
+        }
+
+        System.out.println(result);
+        if (result == 1) {
+            System.out.println(seq[1]);
+            return;
+        }
+        for (int i = 1; i <= num; i++) {
+            if (seq(i) == 1) break;
+
+        }
+
+    }
+
+    static void dp(int num) {
+        for (int i = 1; i < num; i++) {
+            if (seq[num] > seq[num - i] & max < dp[num - i]) {
+                max = dp[num - i];
+                dp[num] = dp[num - i] + 1;
+            }
+        }
+    }
+
+    static int seq(int num) {
+        int cnt = 1;
+        int min = seq[num];
+        sb.append(seq[num]).append(" ");
+        for (int i = num + 1; i < size; i++) {
+
+            if (seq[i] > min) {
+                cnt++;
+                sb.append(seq[i]).append(" ");
+                min = seq[i];
+
+
+                if (cnt == result) {
+
+                    System.out.println(sb);
+                    return 1;
+                }
+            }
+        }
+        if (cnt != max) sb.delete(0, sb.length());
+        return 0;
+    }
+
+}
