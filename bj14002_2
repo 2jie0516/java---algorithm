@@ -1,0 +1,59 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+    static int[] seq;
+    static int[] dp;
+    static int max;
+    static int result;
+    static Stack<Integer> s = new Stack<>();
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        StringBuilder sb =new StringBuilder();
+        int num = sc.nextInt();
+        seq = new int[num + 1];
+        dp = new int[num + 1];
+        for (int i = 1; i <= num; i++) {
+            seq[i] = sc.nextInt();
+        }
+
+        dp[1] = 1;
+        for (int i = 2; i <= num; i++) {
+            dp[i] = 1;
+            max = 0;
+            dp(i);
+        }
+        result = 0;
+        for (int i = 1; i <= num; i++) {
+            if(result < dp[i]) result = dp[i];
+        }
+        System.out.println(result);
+        check(num);
+
+        while (!s.isEmpty()){
+            sb.append(s.pop()).append(" ");
+        }
+        System.out.println(sb);
+    }
+
+    static void dp(int num) {
+        for (int i = 1; i < num; i++) {
+            if (seq[num] > seq[num - i] & max < dp[num - i]) {
+                max = dp[num - i];
+                dp[num] = dp[num - i] + 1;
+            }
+        }
+    }
+    static void check(int num){
+        int cnt = result;
+
+        for(int i=num;i>=1;i--){
+            if(dp[i] == cnt){
+
+                s.push(seq[i]);
+                cnt --;
+            }
+        }
+
+    }
+}
