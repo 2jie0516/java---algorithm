@@ -1,0 +1,38 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+public class main {
+
+    static int[] dp;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int num = sc.nextInt();
+
+
+        int cnt = 2;
+        int cnt_ = cnt * cnt;
+        dp = new int[num + 1];
+        int result = (cnt-1) * (cnt-1);
+
+        dp[1] = 1;
+        for (int i = 2; i <= num; i++) {
+
+            if ((i % cnt_) == 0) {
+                cnt += 1;
+                cnt_ = cnt * cnt;
+
+                result = (cnt-1) * (cnt-1);
+
+                dp[i] = 1 + dp[i - (result)];
+            } else {
+                dp[i] = 1 + dp[i - (result)];
+            }
+
+        }
+        System.out.println(dp[num]);
+    }
+
+
+}
