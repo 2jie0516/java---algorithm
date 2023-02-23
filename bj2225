@@ -1,0 +1,39 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+
+    static long[][] dp;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int value = sc.nextInt();
+        int cnt = sc.nextInt();
+        dp = new long[value + 1][cnt + 1];
+
+        for (int i = 1; i <= value; i++) {
+            dp[i][1] = 1;
+            for (int j = 2; j < cnt; j++) {
+                for (int k = 0; k < i; k++) {
+                    dp[i][j] += dp[i - k][j - 1] % 1000000000;
+                }
+                dp[i][j] += 1;
+            }
+        }
+
+        if (cnt == 1) {
+            System.out.println(dp[value][cnt]);
+        } else {
+            for (int i = 0; i < value; i++) {
+
+                dp[value][cnt] += dp[value - i][cnt - 1] % 1000000000;
+            }
+
+            dp[value][cnt] += 1;
+            System.out.println(dp[value][cnt] % 1000000000);
+        }
+    }
+
+
+}
