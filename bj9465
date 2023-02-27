@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+import static java.lang.Math.max;
+
+
+public class Main {
+
+    static int[][] dp;
+    static int[][] price;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int cnt = sc.nextInt();
+        int num=0;
+        for (int i = 0; i < cnt; i++) {
+            num = sc.nextInt();
+            dp = new int[2][num + 1];
+            price = new int[2][num + 1];
+
+            for (int j = 0; j < 2; j++) {
+                for (int k = 1; k <= num; k++) {
+                    price[j][k] = Integer.parseInt(sc.next());
+                }
+
+            }
+            dp[0][1] = price[0][1];
+            dp[1][1] = price[1][1];
+            dp(num);
+            System.out.println(max(dp[0][num],dp[1][num]));
+        }
+
+
+
+    }
+
+    static void dp(int num) {
+
+        for (int i = 2; i <= num; i++) {
+            dp[0][i] = max(dp[1][i-1] + price[0][i],dp[1][i-2] + price[0][i]);
+            dp[1][i] = max(dp[0][i-1] + price[1][i],dp[0][i-2] + price[1][i]);
+        }
+    }
+
+}
