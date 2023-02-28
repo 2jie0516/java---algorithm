@@ -24,6 +24,7 @@ public class Main {
         dp[2] = value[2] + value[1];
         if (num == 2) {
             System.out.println(dp[2]);
+            return;
         }
         for (int i = 3; i <= num; i++) {
             dp(i);
@@ -34,8 +35,7 @@ public class Main {
     }
 
     static void dp(int num) {
-        dp[num] = max(dp[num - 3] + value[num - 1] + value[num], dp[num - 2] + value[num]);
-
+        dp[num] = max(max(dp[num - 3] + value[num - 1] + value[num], dp[num - 2] + value[num]),dp[num-1]);
     }
 
 }
