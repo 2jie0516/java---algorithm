@@ -1,0 +1,41 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+import static java.lang.Math.max;
+
+
+public class Main {
+
+    static long[] dp;
+    static long[] value;
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int num = sc.nextInt();
+        value = new long[10001];
+        dp = new long[10001];
+        for (int i = 1; i <= num; i++) {
+            value[i] = sc.nextInt();
+        }
+        dp[0] = 0;
+        dp[1] = value[1];
+        dp[2] = value[2] + value[1];
+        if (num == 2) {
+            System.out.println(dp[2]);
+        }
+        for (int i = 3; i <= num; i++) {
+            dp(i);
+        }
+        System.out.println(max(dp[num - 1], dp[num]));
+
+
+    }
+
+    static void dp(int num) {
+        dp[num] = max(dp[num - 3] + value[num - 1] + value[num], dp[num - 2] + value[num]);
+
+    }
+
+}
