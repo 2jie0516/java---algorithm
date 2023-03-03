@@ -1,0 +1,49 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
+
+public class Main {
+
+    static long[] dp;
+    static long[] value;
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+
+        dp = new long[num];
+        value = new long[num];
+
+        for(int i=0;i<num;i++){
+            value[i] = sc.nextInt();
+        }
+        dp[0] = 1;
+
+        for(int i=1;i<num;i++){
+            dp(i);
+        }
+        long result = 0;
+        for (long seq : dp) {
+            if(result < seq){
+                result = seq;
+            }
+        }
+        System.out.println(result);
+    }
+
+    static void dp(int num) {
+        long min = 1;
+        for(int i=0;i<num;i++){
+            if(value[i] > value[num] && min < dp[i] + 1){
+                min = dp[i] + 1;
+            }
+        }
+        dp[num] = min;
+
+    }
+
+}
