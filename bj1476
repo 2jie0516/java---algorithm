@@ -1,0 +1,31 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+    static int[] board = new int[3];
+    static int[] num = new int[3];
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int cnt = 1;
+        board[0] = 1;
+        board[1] = 1;
+        board[2] = 1;
+
+
+        for(int i=0;i<3;i++){
+            num[i] = sc.nextInt();
+        }
+        while (!(board[0] == num[0] && board[1] == num[1] && board[2] == num[2])){
+            board[0] ++;
+            if(board[0] == 16) board[0] = 1;
+            board[1] ++;
+            if(board[1] == 29) board[1] = 1;
+            board[2] ++;
+            if(board[2] == 20) board[2] = 1;
+            cnt ++;
+
+        }
+        System.out.println(cnt);
+    }
+}
+
