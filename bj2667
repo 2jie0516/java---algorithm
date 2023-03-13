@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Main {
     static int[][] arr;
+    static int num;
     static ArrayList<Integer> result_arr = new ArrayList<Integer>();
     static int cnt;
     static int result = 0;
@@ -14,7 +15,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
 
-        int num = Integer.parseInt(br.readLine());
+        num = Integer.parseInt(br.readLine());
 
         arr = new int[num][num];
         for (int i = 0; i < num; i++) {
@@ -50,9 +51,9 @@ public class Main {
 
         for(int i=0;i<4;i++){
             int x_ = x + x_move[i];
-            if(x_ < 0 || x_ >=7) return;
+            if(x_ < 0 || x_ >= num) continue;
             int y_ = y + y_move[i];
-            if(y_ < 0 || y_ >=7) return;
+            if(y_ < 0 || y_ >= num) continue;
 
             if(arr[x_][y_] == 1){
                 dfs(x_,y_);
