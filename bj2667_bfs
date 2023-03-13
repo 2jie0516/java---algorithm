@@ -1,0 +1,91 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+    static int[][] arr;
+    static int num;
+    static ArrayList<Integer> result_arr = new ArrayList<Integer>();
+    static int cnt;
+    static int result = 0;
+    static int[] x_move = {1, -1, 0, 0};
+    static int[] y_move = {0, 0, -1, 1};
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
+        num = Integer.parseInt(br.readLine());
+
+        arr = new int[num][num];
+        for (int i = 0; i < num; i++) {
+            String str = br.readLine();
+            for (int j = 0; j < num; j++) {
+                arr[i][j] = str.charAt(j) - '0';
+            }
+        }
+
+        for (int i = 0; i < num; i++) {
+            for (int j = 0; j < num; j++) {
+                if (arr[i][j] == 1) {
+
+                    result++;
+                    cnt = 0;
+                    bfs(i, j);
+                    result_arr.add(cnt);
+                }
+            }
+        }
+
+        sb.append(result).append("\n");
+        Collections.sort(result_arr);
+        for (int i = 0; i < result_arr.size(); i++) {
+            sb.append(result_arr.get(i)).append("\n");
+        }
+
+        System.out.println(sb);
+    }
+
+//    static void dfs(int x, int y) {
+//        cnt++;
+//        arr[x][y] = 0;
+//
+//        for(int i=0;i<4;i++){
+//            int x_ = x + x_move[i];
+//            if(x_ < 0 || x_ >= num) continue;
+//            int y_ = y + y_move[i];
+//            if(y_ < 0 || y_ >= num) continue;
+//
+//            if(arr[x_][y_] == 1){
+//                dfs(x_,y_);
+//            }
+//        }
+//    }
+
+    static void bfs(int x, int y) {
+
+        Queue<int[]> q = new LinkedList<>();
+        q.offer(new int[]{x, y});
+        arr[x][y] = 0;
+        while (!q.isEmpty()) {
+            cnt ++;
+            int[] node = q.poll();
+            int x_ = node[0];
+            int y_ = node[1];
+
+            for (int i = 0; i < 4; i++) {
+                int move_x = x_ + x_move[i];
+                if (move_x < 0 || move_x >= num) continue;
+                int move_y = y_ + y_move[i];
+                if (move_y < 0 || move_y >= num) continue;
+
+                if (arr[move_x][move_y] == 1) {
+                    arr[move_x][move_y] = 0;
+                    q.offer(new int[]{move_x,move_y});
+                }
+            }
+        }
+    }
+}
+
