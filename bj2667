@@ -1,0 +1,84 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+    static int[][] arr;
+    static ArrayList<Integer> result_arr = new ArrayList<Integer>();
+    static int cnt;
+    static int result = 0;
+    static int[] x_move = {1,-1,0,0};
+    static int[] y_move = {0,0,-1,1};
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
+        int num = Integer.parseInt(br.readLine());
+
+        arr = new int[num][num];
+        for (int i = 0; i < num; i++) {
+            String str = br.readLine();
+            for (int j = 0; j < num; j++) {
+                arr[i][j] = Integer.parseInt(String.valueOf(str.charAt(j)));
+            }
+        }
+
+        for (int i = 0; i < num; i++) {
+            for (int j = 0; j < num; j++) {
+                if (arr[i][j] == 1) {
+                    result++;
+                    cnt = 0;
+                    dfs(i, j);
+                    result_arr.add(cnt);
+                }
+            }
+        }
+
+        sb.append(result).append("\n");
+        Collections.sort(result_arr);
+        for(int i=0;i<result_arr.size();i++){
+            sb.append(result_arr.get(i)).append("\n");
+        }
+
+        System.out.println(sb);
+    }
+
+    static void dfs(int x, int y) {
+        cnt++;
+        arr[x][y] = 0;
+
+        for(int i=0;i<4;i++){
+            int x_ = x + x_move[i];
+            if(x_ < 0 || x_ >=7) return;
+            int y_ = y + y_move[i];
+            if(y_ < 0 || y_ >=7) return;
+
+            if(arr[x_][y_] == 1){
+                dfs(x_,y_);
+            }
+        }
+    }
+
+//    static void bfs(int start) {
+//        Queue<Integer> q = new LinkedList<>();
+//        q.add(start);
+//        visit[start] = true;
+//        while (!q.isEmpty()) {
+//            int value = q.poll();
+//
+//            for (int i = 1; i <= num; i++) {
+//                if (arr[value][i] == 1 && !visit[i]) {
+//                    q.add(i);
+//                    visit[i] = true;
+//                    com++;
+//                }
+//            }
+//
+//        }
+//
+//    }
+
+
+}
+
