@@ -1,0 +1,50 @@
+import java.util.*;
+
+
+public class Solution {
+
+    public static int[] solution(int[] progresses, int[] speeds) {
+        Queue<Integer> p = new LinkedList<>();
+        Queue<Integer> s = new LinkedList<>();
+        ArrayList<Integer> arr = new ArrayList<>();
+        int[] ans;
+        for (int i = 0; i < progresses.length; i++) {
+            p.offer(progresses[i]);
+            s.offer(speeds[i]);
+        }
+        while (!p.isEmpty()) {
+            int p_size = p.size();
+            for (int i = 0; i < p_size; i++) {
+                int num = p.poll();
+                if (i == 0 && (num + s.peek()) >= 100) {
+                    int cnt = 1;
+                    s.poll();
+                    while ((p.peek() != null) && (p.peek() + s.peek()) >= 100) {
+                        p.poll();
+                        s.poll();
+                        cnt++;
+                    }
+                    arr.add(cnt);
+                    break;
+                }
+
+
+                p.offer(num + s.peek());
+                s.offer(s.poll());
+
+
+            }
+        }
+        int size = arr.size();
+        ans = new int[size];
+        for (int i = 0; i < size; i++) {
+            ans[i] = arr.get(i);
+        }
+
+        return ans;
+    }
+
+
+}
+
+
