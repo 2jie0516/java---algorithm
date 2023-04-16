@@ -1,0 +1,57 @@
+import java.util.*;
+
+class Solution {
+    static int size;
+    static int answer;
+    static char[] seq;
+    static String num="";
+    static boolean[] visit;
+    static ArrayList<Integer> arr = new ArrayList<>();
+    
+    public int solution(String numbers) {
+        answer = 0;
+        size = numbers.length();
+        seq = new char[size];
+        visit = new boolean[size];
+        for(int i=0;i<size;i++){
+            seq[i] = numbers.charAt(i);
+        }
+        
+        for(int i=1;i<=size;i++){
+            dfs(0,i);
+        }
+        
+        for(int i=0;i<arr.size();i++){
+            if(cal(i)) answer++;    
+        }
+        
+        return answer;
+    }
+    static void dfs(int cnt,int dep){
+        if(cnt == dep) {
+            int int_num = Integer.parseInt(num);
+            if(!arr.contains(int_num)) arr.add(int_num);
+        }else{
+            for(int i=0;i<size;i++){
+            if(visit[i] == false){
+                visit[i] = true;
+                num += seq[i];
+                dfs(cnt+1,dep); 
+                visit[i] = false;
+                num = num.substring(0,num.length()-1);
+                }
+            }
+        }
+    }
+    
+    static boolean cal(int idx){
+        int num = arr.get(idx);
+        if(num <2) return false;
+        
+        for(int i=2;i<num;i++){
+            if(num % i == 0) return false; 
+        }
+        return true;
+    }
+    
+}
