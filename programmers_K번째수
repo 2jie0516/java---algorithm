@@ -1,0 +1,36 @@
+class Solution {
+    public int[] solution(int[] array, int[][] commands) {
+        
+            int num = commands.length;
+            int[] answer = new int[num];
+            for(int i=0;i<num;i++){
+            int k = commands[i][1] - commands[i][0] + 1;
+            int[] arr = new int[k+1];
+            
+            int idx = commands[i][0]-1;
+            for(int j=1; j <= k; j++){
+                arr[j] = array[idx];
+                idx++;
+            }
+            
+            for(int j=1;j<arr.length;j++){
+                    int min_idx = j;
+                    for(int p=j+1;p<arr.length;p++){
+                        if(arr[min_idx] > arr[p]) min_idx = p;
+                    }
+                    int temp = arr[j];
+                    arr[j] = arr[min_idx];
+                    arr[min_idx] = temp;
+                
+            }
+            for(int p=1;p<arr.length;p++){
+                System.out.print(arr[p]+" ");
+            }
+            answer[i] = arr[commands[i][2]];
+            }
+        
+        
+        return answer;
+    }
+}
+
