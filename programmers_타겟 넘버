@@ -1,0 +1,21 @@
+class Solution {
+    static int answer = 0;
+    static int num;
+    public int solution(int[] numbers, int target) {
+        
+        num = numbers.length;
+        dfs(0,0,target,numbers);
+                
+        return answer;
+    }
+    
+    static void dfs(int depth,int sum,int target,int[] numbers){
+        if(depth == num){
+            if(sum == target) answer ++;
+        }
+        else{
+            dfs(depth+1,sum+numbers[depth],target,numbers);
+            dfs(depth+1,sum-numbers[depth],target,numbers);
+        }
+    }
+}
