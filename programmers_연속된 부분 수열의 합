@@ -1,0 +1,25 @@
+class Solution {
+    
+    public int[] solution(int[] sequence, int k) {
+        int[] answer = new int[2];
+        int end = 0;
+        int min = Integer.MAX_VALUE;
+        int sum = 0;
+        int num = sequence.length;
+        
+        for(int start=0;start<num;start++){
+            while(sum < k && end < num){
+                sum += sequence[end];
+                end ++;
+            }
+            if(sum == k && min > ((end-1) - start)){
+                min = ((end-1) - start);
+                answer[0] = start;
+                answer[1] = end-1;
+            } 
+            
+            sum -= sequence[start];
+        }
+        return answer;
+    }
+}
