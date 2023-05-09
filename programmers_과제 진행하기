@@ -1,0 +1,65 @@
+import java.util.*;
+
+class Solution {
+    public List<String> solution(String[][] plans) {
+        List<String> answer = new ArrayList<>();
+        
+        Node[] works = new Node[plans.length];
+        
+        for(int i=0;i<plans.length;i++){
+            String[] time = plans[i][1].split(":");
+            works[i] = new Node(i,Integer.parseInt(time[0]) * 60 + Integer.parseInt(time[1]),
+                                Integer.parseInt(plans[i][2]));
+        }
+        
+        Arrays.sort(works,(o1,o2) -> {return o1.start - o2.start;});
+        
+        Stack<Node> remain_works = new Stack<>();
+        
+        for(int i=0;i<works.length-1;i++){
+            int pivot = works[i].start + works[i].time;
+            int next = works[i+1].start;
+            
+            if(pivot <= next){
+                answer.add(plans[works[i].idx][0]);
+                
+                int time = next - pivot;
+                while(time > 0 && !remain_works.isEmpty()){
+                    time = remain_works.peek().time - time;
+                    remain_works.peek().time = Math.max(0,time);
+                    if(time <= 0){
+                        time *= -1;
+                        answer.add(plans[remain_works.pop().idx][0]);
+                    }
+                    else{
+                        time = 0;
+                    }
+                }
+            }
+            else{
+                works[i].time = pivot - next;
+                remain_works.push(works[i]);
+            }
+        }
+        
+        answer.add(plans[works[works.length - 1].idx][0]);
+        
+        while(!remain_works.isEmpty()){
+            answer.add(plans[remain_works.pop().idx][0]);
+        }
+                                
+        return answer;
+    }
+    
+    static class Node{
+        int idx;
+        int start;
+        int time;
+        
+        public Node(int idx,int start,int time){
+            this.idx = idx;
+            this.start = start;
+            this.time = time;
+        }
+    }
+}
