@@ -1,0 +1,77 @@
+import java.util.*;
+
+class Solution {
+    static class Node{
+        int x;
+        int y;
+        public Node(int x , int y){
+            this.x = x;
+            this.y = y;
+        } 
+    }
+    
+    static ArrayList<Node> arr  = new ArrayList<>();
+    static int x_max = Integer.MIN_VALUE;
+    static int x_min = Integer.MAX_VALUE;
+    static int y_max = Integer.MIN_VALUE;
+    static int y_min = Integer.MAX_VALUE;
+    public String[] solution(int[][] line) {
+    
+        check(line);
+        
+        
+        
+        char[][] point = new char[y_max - y_min + 1][x_max - x_min+1];
+        
+        for(int i =0;i<y_max - y_min + 1;i++){
+            for(int j =0;j<x_max - x_min+1;j++){
+                
+                point[i][j] = '.';    
+                
+            }    
+        }
+        
+        for(int i =0;i<arr.size();i++){
+            Node n = arr.get(i);
+            int x = n.x - x_min;
+            int y = y_max - n.y;
+            point[y][x] = '*';
+        }
+        
+        
+        String[] answer = new String[point.length];
+        
+        for(int i=0;i<answer.length;i++){
+            answer[i] = new String(point[i]);
+        }
+        
+        return answer;
+    }
+    
+    static void check(int[][] line){
+        for(int i=0;i<line.length-1;i++){
+            for(int j=i+1;j<line.length;j++){
+                cal(line[i],line[j]);
+            }
+        }
+    }
+    
+    static void cal(int[] prev ,int[] post){
+        
+        if(prev[0]*post[1] - prev[1]*post[0] != 0){
+        double x = (double) (prev[1]*post[2] - prev[2]*post[1]) / (prev[0]*post[1] - prev[1]*post[0]);
+        double y = (double) (prev[2]*post[0] - prev[0]*post[2]) / (prev[0]*post[1] - prev[1]*post[0]);
+        
+        
+        if(x % 1 ==0 && y % 1 ==0) {
+            if(x > x_max) x_max = (int)x;
+            if(x < x_min) x_min = (int)x;
+            if(y > y_max) y_max = (int)y;
+            if(y < y_min) y_min = (int)y;
+            
+            arr.add(new Node((int)x,(int)y));
+        }
+        }
+        
+    }
+}
