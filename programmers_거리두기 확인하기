@@ -1,0 +1,73 @@
+import java.util.*;
+
+class Solution {
+    
+    static int[] dx = {1,2,-1,-2,0,0,0,0,-1,-1,1,1};
+    static int[] dy = {0,0,0,0,1,2,-1,-2,-1,1,-1,1};
+    static List<Integer> answer = new ArrayList<>();
+    public List<Integer> solution(String[][] places) {
+        
+        for(int i=0;i<5;i++){
+            visit(places[i]);
+            if(visit(places[i]) == true){
+                answer.add(1);
+            }
+            else {
+                answer.add(0);
+            }
+        }
+        
+        return answer;
+    }
+    
+    static boolean visit(String[] places){
+        for(int j=0;j<5;j++){
+                for(int k=0;k<5;k++){
+                    if(places[j].charAt(k) == 'P'){
+                        check(j,k,places);
+                        if(check(j,k,places) == false){
+                            return false;
+                        }
+                    }    
+                }
+            }    
+        return true;
+    }
+    
+    static boolean check(int y,int x,String[] places){
+        for(int i=0;i<=1;i++){
+            if(y+dy[i] < 0 || y+dy[i] > 4 || x+dx[i] < 0 || y+dy[i] > 4) break; 
+            if(places[y+dy[i]].charAt(x+dx[i]) == 'X') break;
+            if(places[y+dy[i]].charAt(x+dx[i]) == 'P') return false;
+        }
+        for(int i=2;i<=3;i++){
+            if(y+dy[i] < 0 || y+dy[i] > 4 || x+dx[i] < 0 || y+dy[i] > 4) break;
+            if(places[y+dy[i]].charAt(x+dx[i]) == 'X') break;
+            if(places[y+dy[i]].charAt(x+dx[i]) == 'P') return false;
+        }
+        for(int i=4;i<=5;i++){
+            if(y+dy[i] < 0 || y+dy[i] > 4 || x+dx[i] < 0 || y+dy[i] > 4) break;
+            if(places[y+dy[i]].charAt(x+dx[i]) == 'X') break;
+            if(places[y+dy[i]].charAt(x+dx[i]) == 'P') return false;
+        }
+        for(int i=6;i<=7;i++){
+            if(y+dy[i] < 0 || y+dy[i] > 4 || x+dx[i] < 0 || y+dy[i] > 4) break;
+            if(places[y+dy[i]].charAt(x+dx[i]) == 'X') break;
+            if(places[y+dy[i]].charAt(x+dx[i]) == 'P') return false;
+        }
+        for(int i=8;i<=11;i++){
+            if(y+dy[i] < 0 || y+dy[i] > 4 || x+dx[i] < 0 || y+dy[i] > 4) continue;
+            if(places[y+dy[i]].charAt(x+dx[i]) == 'X' || places[y+dy[i]].charAt(x+dx[i]) == 'O') 
+                continue;
+            if(places[y+dy[i]].charAt(x+dx[i]) == 'P'){
+              if(places[y+dy[i]].charAt(x) == 'X' && places[y].charAt(x+dx[i]) == 'X') {
+                  continue;
+                    }
+                }
+            else return false;
+            }  
+        return true;
+        }
+        
+    
+    } 
