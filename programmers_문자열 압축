@@ -1,0 +1,79 @@
+import java.util.*;
+
+class Solution {
+    public int solution(String s) {
+        
+        
+        int min = Integer.MAX_VALUE;
+        
+        if(s.length() == 1){
+            return 1;
+        }
+        
+        
+        for(int i=1;i<=(s.length()/2) ;i++){
+            StringBuilder sb = new StringBuilder();
+            int idx = 0;
+            int cnt = 1;
+            
+            String str_prev = s.substring(idx,idx + i);
+            idx = idx + i ;
+            
+            while(true){
+                if(idx + i > s.length()) {
+                    if(cnt == 1){
+                        sb.append(str_prev);    
+                    }
+                    
+                    else{
+                        sb.append(cnt).append(str_prev);
+                    }
+                    
+                    sb.append(s.substring(idx,s.length()));
+                    
+                    if(min > sb.length()) {
+                       
+                        min = sb.length();
+                  
+                    }
+                    
+                    break;
+                }
+                
+                String str = s.substring(idx,idx + i);
+                idx = idx + i ;
+                
+                if(str_prev.equals(str)){
+                    cnt ++;
+                }
+                else{
+                    if(cnt == 1){
+                        sb.append(str_prev);    
+                    }
+                    
+                    else{
+                        sb.append(cnt).append(str_prev);
+                        cnt = 1;
+                    }
+                    str_prev = str;
+                    
+                    if(idx + i > s.length()){
+                        sb.append(str_prev).append(s.substring(idx,s.length()));
+                        
+                        if(min > sb.length()) {
+                           
+                            min = sb.length();
+                  
+                            }
+                        break;
+                    }
+                    
+                }
+            }
+            
+              
+        }
+        
+        return min;
+    }
+}
