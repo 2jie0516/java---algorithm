@@ -1,0 +1,27 @@
+import java.util.*;
+
+class Solution {
+    public String solution(String s) {
+        StringBuilder ans = new StringBuilder();
+        boolean idx = true;
+        
+        for(char c : s.toCharArray()){
+            if(!Character.isAlphabetic(c)){
+                ans.append(c);
+                idx = true;
+            }
+            else{
+                if(idx){
+                    ans.append(Character.toUpperCase(c));
+                }else{
+                    ans.append(Character.toLowerCase(c));
+                }
+                
+                idx = !idx;
+            }
+        }
+        
+        return ans.toString();
+    }
+    
+}
