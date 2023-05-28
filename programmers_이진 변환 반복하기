@@ -1,0 +1,30 @@
+import java.util.*;
+
+class Solution {
+    public int[] solution(String s) {
+        int cnt = 0;
+        int cnt_zero = 0;
+        int cnt_removed = 0;
+        
+        while(!s.equals("1")){
+            cnt ++;
+            cnt_zero=0;
+            for(char c : s.toCharArray()){
+                if(c == '0') cnt_zero ++;
+            }
+            
+            cnt_removed += cnt_zero;
+            
+            int len = s.length() - cnt_zero;
+            s = Integer.toString(len,2);
+            
+        }
+        
+        int[] answer = new int[2];
+        answer[0] = cnt;
+        answer[1] = cnt_removed;
+        
+        return answer;
+        
+    }
+}
