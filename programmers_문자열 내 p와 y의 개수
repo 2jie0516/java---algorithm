@@ -1,0 +1,18 @@
+class Solution {
+    boolean solution(String s) {
+        boolean answer = true;
+        int cnt_p = 0;
+        int cnt_y = 0;
+        if(!s.contains("p") && !s.contains("P") && !s.contains("y") && !s.contains("Y")) return true;
+        
+        
+        for(char c : s.toCharArray()){
+            if(c == 'P' || c == 'p') cnt_p ++;
+            if(c == 'Y' || c == 'y') cnt_y ++;
+        }
+        
+        if(cnt_p != cnt_y) answer = false;
+        
+        return answer;
+    }
+}
