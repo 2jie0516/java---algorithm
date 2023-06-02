@@ -1,0 +1,46 @@
+class Solution {
+    static int[] cnt = new int[2];
+    
+    public int[] solution(int[][] arr) {
+        int[] answer = new int[2];
+        
+        check(0,0,arr.length,arr);
+        
+        answer[0] = cnt[0];
+        answer[1] = cnt[1];
+        
+        return answer;
+    }
+    
+    public static void check(int y,int x,int idx,int[][] arr){
+        if(idx == 1) {
+            cnt[arr[y][x]] ++;
+            
+            return;
+        }
+        
+        if(check_num(y,x,idx,arr) == 1) return;
+        
+        idx = idx/2;
+        
+        check(y,x,idx,arr);
+        check(y,x+idx,idx,arr);
+        check(y+idx,x,idx,arr);
+        check(y+idx,x+idx,idx,arr);
+        
+    }
+    
+    public static int check_num(int y,int x,int idx,int[][] arr){
+        int pivot = arr[y][x];
+        for(int i=y;i<y+idx;i++){
+            for(int j=x;j<x+idx;j++){
+                if(pivot != arr[i][j]) return 0;
+            }
+        }
+
+        cnt[pivot] ++;              
+        
+        return 1;
+    }
+    
+}
