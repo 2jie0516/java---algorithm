@@ -1,0 +1,37 @@
+import java.util.*;
+
+class Solution {
+    
+    static char[] alpa = {'A','E','I','O','U'};
+    
+    static List<String> seq = new ArrayList<>(); 
+    
+    String target;
+    
+    public int solution(String word) {
+        int answer = 0;
+        
+        target = word;
+        
+        append("");
+        
+        return seq.indexOf(word);
+    }
+    
+    static void append(String word){
+        
+        seq.add(word);
+        
+        if(word.length() == 5){
+            return;
+        }
+                
+        for(char c: alpa){
+            append(word+c);
+        }
+        
+        return;
+    }
+    
+    
+}
