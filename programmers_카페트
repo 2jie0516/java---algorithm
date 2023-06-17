@@ -1,0 +1,27 @@
+class Solution {
+
+    public int[] solution(int brown, int yellow) {
+        int[] answer = new int[2];
+        
+        int total = brown + yellow;
+
+        for(int x=3;x<total/2;x++){
+            for(int y=x;y<total/2;y++){
+                if(x * y == total){
+                    
+                    if((x-2) * (y-2) == yellow){
+                        answer[0] = y;
+                        answer[1] = x;
+                        return answer;
+                    }
+                }
+            }
+        }
+        
+        
+        
+        return answer;
+    }
+    
+
+}
