@@ -1,0 +1,60 @@
+import java.util.*;
+
+class Solution {
+    private static HashMap<String,List<Integer>> map = new HashMap<String,List<Integer>>(); 
+    
+    public int[] solution(String[] info, String[] query) {
+        int[] answer = new int[query.length];
+        
+        for(int i=0;i<info.length;i++){
+            String[] infoQuery = info[i].split(" ");
+            makeQuery(infoQuery,"",0);
+        }
+        
+         for(String key : map.keySet()){
+             Collections.sort(map.get(key));
+         }
+        
+        for(int i=0;i<query.length;i++){
+            String querySentence = query[i].replaceAll(" and ","");
+            String[] queryInfo = querySentence.split(" ");
+            answer[i] = map.containsKey(queryInfo[0]) ? search(map.get(queryInfo[0]),Integer.parseInt(queryInfo[1])) : 0; 
+        }
+        
+        return answer;
+    }
+    
+    int search(List<Integer> list,int score) {
+        int start = 0;
+        int end = list.size() -1;
+        
+        while(start <= end){
+            int mid = (start+end) / 2;
+            
+            if(list.get(mid) < score){
+                start = mid +1;
+            }
+            else{
+                end = mid -1;    
+            }
+            
+        }
+        
+        return list.size() -start;
+    }
+    
+    void makeQuery(String[] info,String query,int cnt){
+        if(cnt == 4){
+            if(!map.containsKey(query)){
+                ArrayList<Integer> list = new ArrayList<>();
+                map.put(query,list);
+            }
+            
+            map.get(query).add(Integer.parseInt(info[cnt]));
+            return;
+        }
+        
+        makeQuery(info,query+info[cnt],cnt+1);
+        makeQuery(info,query+"-",cnt+1);
+    }
+}
